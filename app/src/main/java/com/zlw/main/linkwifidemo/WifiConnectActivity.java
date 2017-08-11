@@ -11,35 +11,30 @@ import android.widget.TextView;
 import com.zlw.main.linkwifidemo.utils.JsonUtil;
 import com.zlw.main.linkwifidemo.utils.Logger;
 import com.zlw.main.linkwifidemo.wifi.OnWifiConnectListener;
+import com.zlw.main.linkwifidemo.wifi.WifiConnectBean;
 import com.zlw.main.linkwifidemo.wifi.WifiController;
-import com.zlw.main.linkwifidemo.wifi.WifiLinkBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by admin on 2017/8/11.
- */
-
-public class WifiLinkActivity extends AppCompatActivity {
-
-    private static final String TAG = WifiLinkActivity.class.getSimpleName();
+public class WifiConnectActivity extends AppCompatActivity {
+    private static final String TAG = WifiConnectActivity.class.getSimpleName();
     public static final String BEAN = "BEAN";
     @BindView(R.id.tvWifiLinkInfo)
     TextView tvWifiLinkInfo;
     @BindView(R.id.btStartLink)
     Button btStartLink;
 
-    private WifiLinkBean wifiLinkBean;
+    private WifiConnectBean wifiConnectBean;
 
     public static void startMe(Context context, String jsonStr) {
         if (TextUtils.isEmpty(jsonStr)) {
-            Logger.e(TAG, "WifiLinkActivity.startMe()  jsonStr =  NULL");
+            Logger.e(TAG, "WifiConnectActivity.startMe()  jsonStr =  NULL");
             return;
         }
 
-        Intent intent = new Intent(context, WifiLinkActivity.class);
+        Intent intent = new Intent(context, WifiConnectActivity.class);
         intent.putExtra(BEAN, jsonStr);
         context.startActivity(intent);
     }
@@ -49,7 +44,7 @@ public class WifiLinkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wif_link);
         ButterKnife.bind(this);
-        Logger.d(TAG, "=====================>>WifiLinkActivity<<=====================");
+        Logger.d(TAG, "=====================>>WifiConnectActivity<<=====================");
         initData();
 
     }
@@ -61,25 +56,25 @@ public class WifiLinkActivity extends AppCompatActivity {
             finish();
             return;
         } else {
-            wifiLinkBean = JsonUtil.fromJson(jsonStr, WifiLinkBean.class);
+            wifiConnectBean = JsonUtil.fromJson(jsonStr, WifiConnectBean.class);
         }
         tvWifiLinkInfo.setText(jsonStr);
-        Logger.i(TAG, wifiLinkBean.toString());
+        Logger.i(TAG, wifiConnectBean.toString());
     }
 
 
     @Override
     protected void onDestroy() {
-        Logger.d(TAG, "=====<<WifiLinkActivity>>-onDestroy=====");
+        Logger.d(TAG, "=====<<WifiConnectActivity>>-onDestroy=====");
         super.onDestroy();
     }
 
     @OnClick(R.id.btStartLink)
     public void onViewClicked() {
         Logger.d(TAG, "开始连接Wifi...");
-        WifiController.getInstant(getApplicationContext()).connectWifiByPassword(wifiLinkBean.getWifiSSID(),
-                WifiController.SecurityMode.valueOf(wifiLinkBean.getWifiSecurityMode()),
-                wifiLinkBean.getWifiPassword(), new OnWifiConnectListener() {
+        WifiController.getInstant(getApplicationContext()).connectWifiByPassword(wifiConnectBean.getWifiSSID(),
+                WifiController.SecurityMode.valueOf(wifiConnectBean.getWifiSecurityMode()),
+                wifiConnectBean.getWifiPassword(), new OnWifiConnectListener() {
                     @Override
                     public void onStart(String SSID) {
                         btStartLink.setText("正在连接");

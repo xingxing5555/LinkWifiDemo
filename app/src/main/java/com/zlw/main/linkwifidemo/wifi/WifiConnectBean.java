@@ -1,15 +1,15 @@
 package com.zlw.main.linkwifidemo.wifi;
 
-public class WifiLinkBean {
+public class WifiConnectBean {
     private String wifiSSID;
     private String wifiPassword;
     private String wifiSecurityMode;
 
-    public WifiLinkBean() {
+    public WifiConnectBean() {
 
     }
 
-    public WifiLinkBean(String wifiSSID, String wifiPassword, String wifiSecurityMode) {
+    public WifiConnectBean(String wifiSSID, String wifiPassword, String wifiSecurityMode) {
         setWifiSSID(wifiSSID);
         setWifiPassword(wifiPassword);
         setWifiSecurityMode(wifiSecurityMode);
@@ -41,7 +41,7 @@ public class WifiLinkBean {
 
     @Override
     public String toString() {
-        return "WifiLinkBean{" +
+        return "WifiConnectBean{" +
                 "wifiSSID='" + wifiSSID + '\'' +
                 ", wifiPassword='" + wifiPassword + '\'' +
                 ", wifiSecurityMode='" + wifiSecurityMode + '\'' +

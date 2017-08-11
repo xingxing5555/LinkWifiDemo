@@ -247,20 +247,14 @@ public class WifiController {
      */
     public void connectWifiByNetworkId(@NonNull String ssid, int networkId, @NonNull OnWifiConnectListener listener) {
 
-        // 连接的回调监听
         mOnWifiConnectListener = listener;
-        // 连接开始的回调
+
         mOnWifiConnectListener.onStart(ssid);
-        /*
-         * 判断 NetworkId 是否有效
-         * -1 表示配置参数不正确，我们获取不到会返回-1.
-         */
+
         if (-1 == networkId) {
             // 连接WIFI失败
             if (null != mOnWifiConnectListener) {
-                // 配置错误
                 mOnWifiConnectListener.onFailure(ssid);
-                // 连接完成
                 mOnWifiConnectListener.onFinish();
                 mOnWifiConnectListener = null;
             }
@@ -272,11 +266,8 @@ public class WifiController {
             // 断开当前连接
             boolean isDisconnect = disconnectWifi(wifiInfo.getNetworkId());
             if (!isDisconnect) {
-                // 断开当前网络失败
                 if (null != mOnWifiConnectListener) {
-                    // 断开当前网络失败
                     mOnWifiConnectListener.onFailure(ssid);
-                    // 连接完成
                     mOnWifiConnectListener.onFinish();
                     mOnWifiConnectListener = null;
                 }
@@ -287,11 +278,8 @@ public class WifiController {
         // 连接WIFI
         boolean isEnable = mWifiManager.enableNetwork(networkId, true);
         if (!isEnable) {
-            // 连接失败
             if (null != mOnWifiConnectListener) {
-                // 连接失败
                 mOnWifiConnectListener.onFailure(ssid);
-                // 连接完成
                 mOnWifiConnectListener.onFinish();
                 mOnWifiConnectListener = null;
             }

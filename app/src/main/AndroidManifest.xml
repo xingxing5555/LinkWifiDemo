@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WifiLinkActivity"
+            android:name=".WifiConnectActivity"
             android:theme="@style/NoTitleAppTheme" />
     </application>
 

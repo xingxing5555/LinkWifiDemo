@@ -24,8 +24,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.common.collect.Lists;
 import com.zlw.main.linkwifidemo.utils.JsonUtil;
 import com.zlw.main.linkwifidemo.utils.Logger;
+import com.zlw.main.linkwifidemo.wifi.WifiConnectBean;
 import com.zlw.main.linkwifidemo.wifi.WifiController;
-import com.zlw.main.linkwifidemo.wifi.WifiLinkBean;
 import com.zlw.main.linkwifidemo.wifi.WifiReceiver;
 import com.zlw.main.linkwifidemo.wifi.WifiReceiverActionListener;
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private WifiController wifiController;
     private WifiReceiver wifiReceiver;
 
-    private WifiListAdapter adapter;
+    private WifiConnectAdapter adapter;
     private List<ScanResult> wifiList;
 
     private AlertDialog.Builder wifiLinkDialogBuilder;
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecycleView() {
         rvWifiList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new WifiListAdapter();
+        adapter = new WifiConnectAdapter();
         rvWifiList.setAdapter(adapter);
         wifiList = Lists.newArrayList();
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -129,11 +129,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (wifiLinkDialogViewHolder != null) {
-                    WifiLinkBean wifiLinkInfo = wifiLinkDialogViewHolder.getWifiLinkInfo();
+                    WifiConnectBean wifiLinkInfo = wifiLinkDialogViewHolder.getWifiLinkInfo();
                     String jsonStr = JsonUtil.toJson(wifiLinkInfo);
                     wifiLinkDialogViewHolder = null;
                     wifiLinkDialogBuilder = null;
-                    WifiLinkActivity.startMe(MainActivity.this, jsonStr);
+                    WifiConnectActivity.startMe(MainActivity.this, jsonStr);
 
                 } else {
                     Logger.e(TAG, "wifiLinkDialogViewHolder is NULL ");
@@ -272,17 +272,17 @@ public class MainActivity extends AppCompatActivity {
             this.dialogView = view;
         }
 
-        WifiLinkBean getWifiLinkInfo() {
+        WifiConnectBean getWifiLinkInfo() {
             if (TextUtils.isEmpty(etWifiPassword.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "请输入密码", Toast.LENGTH_SHORT).show();
                 return null;
             }
             if (TextUtils.isEmpty(tvWifiSSID.getText().toString()) || TextUtils.isEmpty(tvWifiSecurityMode.getText().toString())) {
-                Logger.e(TAG, "WifiLinkBean 数据异常");
+                Logger.e(TAG, "WifiConnectBean 数据异常");
                 return null;
             }
 
-            return new WifiLinkBean(tvWifiSSID.getText().toString(), etWifiPassword.getText().toString(), tvWifiSecurityMode.getText().toString());
+            return new WifiConnectBean(tvWifiSSID.getText().toString(), etWifiPassword.getText().toString(), tvWifiSecurityMode.getText().toString());
         }
     }
 }

@@ -10,10 +10,10 @@ import com.google.common.collect.Lists;
  * Created by admin on 2017/8/11.
  */
 
-public class WifiListAdapter extends BaseQuickAdapter<ScanResult, BaseViewHolder> {
+public class WifiConnectAdapter extends BaseQuickAdapter<ScanResult, BaseViewHolder> {
 
 
-    public WifiListAdapter() {
+    public WifiConnectAdapter() {
         super(R.layout.rv_item_wifi_list, Lists.<ScanResult>newArrayList());
     }
 
