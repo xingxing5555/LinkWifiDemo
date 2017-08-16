@@ -44,4 +44,6 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     compile 'com.google.guava:guava:22.0-android'
 
+    compile 'cn.yipianfengye.android:zxing-library:2.2'
+
 }

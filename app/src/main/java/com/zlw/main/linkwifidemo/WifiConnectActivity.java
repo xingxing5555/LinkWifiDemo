@@ -29,12 +29,15 @@ public class WifiConnectActivity extends AppCompatActivity {
     private WifiConnectBean wifiConnectBean;
 
     public static void startMe(Context context, String jsonStr) {
+        Logger.e(TAG, "WifiConnectActivity startMe");
+
         if (TextUtils.isEmpty(jsonStr)) {
             Logger.e(TAG, "WifiConnectActivity.startMe()  jsonStr =  NULL");
             return;
         }
 
         Intent intent = new Intent(context, WifiConnectActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(BEAN, jsonStr);
         context.startActivity(intent);
     }
@@ -46,7 +49,6 @@ public class WifiConnectActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Logger.d(TAG, "=====================>>WifiConnectActivity<<=====================");
         initData();
-
     }
 
     private void initData() {
@@ -93,6 +95,5 @@ public class WifiConnectActivity extends AppCompatActivity {
                         Logger.d(TAG, "连接成功");
                     }
                 });
-
     }
 }

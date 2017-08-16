@@ -6,16 +6,23 @@
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/tvWifiSSID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MyWifi"
+        android:layout_marginTop="10dp"
+        android:text="网络名(SSID)："
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/etWifiSSID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:text="密码"
         android:textSize="16sp" />
 
@@ -35,7 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="6dp"
-            android:text="加密方式： " />
+            android:text="加密方式： "
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvWifiSecurityMode"
@@ -43,7 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="6dp"
-            android:text="OPEN" />
+            android:text="OPEN"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

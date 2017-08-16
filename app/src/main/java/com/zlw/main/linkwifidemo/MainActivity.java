@@ -2,7 +2,9 @@ package com.zlw.main.linkwifidemo;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -15,15 +17,20 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.common.collect.Lists;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zlw.main.linkwifidemo.utils.JsonUtil;
 import com.zlw.main.linkwifidemo.utils.Logger;
+import com.zlw.main.linkwifidemo.utils.blankj.PhoneUtils;
 import com.zlw.main.linkwifidemo.wifi.WifiConnectBean;
 import com.zlw.main.linkwifidemo.wifi.WifiController;
 import com.zlw.main.linkwifidemo.wifi.WifiReceiver;
@@ -42,6 +49,7 @@ import permissions.dispatcher.RuntimePermissions;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int REQUEST_CODE = 0011;
     @BindView(R.id.btOpenWifi)
     Button btOpenWifi;
     @BindView(R.id.btSelectWifi)
@@ -52,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     Button btScan;
     @BindView(R.id.rvWifiList)
     RecyclerView rvWifiList;
+    @BindView(R.id.ivQRcode)
+    ImageView ivQRcode;
 
     private Unbinder bind;
 
@@ -74,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         initRecycleView();
     }
 
-
     @Override
     protected void onDestroy() {
         //注销广播
@@ -88,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @OnClick({R.id.btOpenWifi, R.id.btSelectWifi, R.id.btCreateQrcode, R.id.btScan})
+    @OnClick({R.id.btOpenWifi, R.id.btSelectWifi, R.id.btCreateQrcode, R.id.btScan, R.id.btAll})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btOpenWifi:
@@ -98,8 +107,13 @@ public class MainActivity extends AppCompatActivity {
                 selectWifi();
                 break;
             case R.id.btCreateQrcode:
+                createQRcode();
                 break;
             case R.id.btScan:
+                startScan();
+                break;
+            case R.id.btAll:
+                startAll();
                 break;
         }
     }
@@ -116,6 +130,15 @@ public class MainActivity extends AppCompatActivity {
                 showWifiLinkDialog(item);
             }
         });
+
+        View header = getLayoutInflater().inflate(R.layout.rv_header_wifi_list, (ViewGroup) rvWifiList.getParent(), false);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showWifiLinkDialog(null);
+            }
+        });
+        adapter.setHeaderView(header);
     }
 
     private void initWifiLinkDialog(View dialog) {
@@ -162,11 +185,12 @@ public class MainActivity extends AppCompatActivity {
             dialogView = wifiLinkDialogViewHolder.dialogView;
         }
 
-        WifiController.SecurityMode securityMode = WifiController.getInstant(getApplicationContext()).getSecurityMode(item);
-
         wifiLinkDialogViewHolder = new WifiLinkDialogViewHolder(dialogView);
-        wifiLinkDialogViewHolder.tvWifiSSID.setText(item.SSID);
-        wifiLinkDialogViewHolder.tvWifiSecurityMode.setText(securityMode.name());
+        if (null != item) {
+            WifiController.SecurityMode securityMode = WifiController.getInstant(getApplicationContext()).getSecurityMode(item);
+            wifiLinkDialogViewHolder.etWifiSSID.setText(item.SSID);
+            wifiLinkDialogViewHolder.tvWifiSecurityMode.setText(securityMode.name());
+        }
 
         if (wifiLinkDialogBuilder == null) {
             initWifiLinkDialog(dialogView);
@@ -217,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         MainActivityPermissionsDispatcher.selectWifiWithCheck(this);
+        MainActivityPermissionsDispatcher.startScanWithCheck(this);
         Logger.d(TAG, "初始化 wifiController...");
         wifiController = WifiController.getInstant(getApplicationContext());
         //动态注册广播接收器
@@ -230,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(wifiReceiver, intentFilter);
     }
 
+
     public void openWifi() {
         Logger.d(TAG, "enableWifi...");
         wifiController.enableWifi();
@@ -237,6 +263,8 @@ public class MainActivity extends AppCompatActivity {
 
     @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     public void selectWifi() {
+        ivQRcode.setVisibility(View.GONE);
+
         if (wifiController == null) {
             Logger.w(TAG, "wifiController == null");
             return;
@@ -256,12 +284,11 @@ public class MainActivity extends AppCompatActivity {
                 Settings.Secure.LOCATION_MODE_OFF) != Settings.Secure.LOCATION_MODE_OFF;
     }
 
-
     class WifiLinkDialogViewHolder {
         View dialogView;
 
-        @BindView(R.id.tvWifiSSID)
-        TextView tvWifiSSID;
+        @BindView(R.id.etWifiSSID)
+        EditText etWifiSSID;
         @BindView(R.id.tvWifiSecurityMode)
         TextView tvWifiSecurityMode;
         @BindView(R.id.etWifiPassword)
@@ -277,12 +304,70 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "请输入密码", Toast.LENGTH_SHORT).show();
                 return null;
             }
-            if (TextUtils.isEmpty(tvWifiSSID.getText().toString()) || TextUtils.isEmpty(tvWifiSecurityMode.getText().toString())) {
-                Logger.e(TAG, "WifiConnectBean 数据异常");
+            if (TextUtils.isEmpty(etWifiSSID.getText().toString())) {
+                Logger.e(TAG, "Wifi SSID 异常");
                 return null;
             }
 
-            return new WifiConnectBean(tvWifiSSID.getText().toString(), etWifiPassword.getText().toString(), tvWifiSecurityMode.getText().toString());
+            if (TextUtils.isEmpty(tvWifiSecurityMode.getText().toString())) {
+                Logger.e(TAG, "Wifi SecurityMode 数据异常");
+                return null;
+            }
+            return new WifiConnectBean(etWifiSSID.getText().toString(), etWifiPassword.getText().toString(), tvWifiSecurityMode.getText().toString());
         }
+    }
+
+
+    //二维码相关
+    @NeedsPermission(Manifest.permission.CAMERA)
+    public void startScan() {
+        Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    private void createQRcode() {
+        String textContent = PhoneUtils.getIMEI();
+        Bitmap mBitmap = CodeUtils.createImage(textContent, 400, 400, null);
+
+        ivQRcode.setImageBitmap(mBitmap);
+        ivQRcode.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**
+         * 处理二维码扫描结果
+         */
+        if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    Toast.makeText(this, "绑定成功，请选择Wifi", Toast.LENGTH_LONG).show();
+                    Logger.i(TAG, "解析结果:" + result);
+                    selectWifi();
+
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
+                    Logger.i(TAG, "解析二维码失败");
+                }
+            }
+        }
+    }
+
+    /**
+     * Wifi连接完整流程
+     * 1.扫描设备二维码获取设备IMEI码
+     * 2.录入Wifi信息  WiFiContentBean
+     * 3.将IMEI码和WiFiContentBean 发送给服务器，服务器再推送给目标设备
+     * 4.设备获取Wifi信息 并自动连接
+     */
+    private void startAll() {
+        startScan();
     }
 }

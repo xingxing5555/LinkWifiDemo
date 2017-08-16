@@ -38,7 +38,8 @@ public class MyReceiver extends BroadcastReceiver {
                 //send the Registration Id to your server...
 
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-                Logger.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+                String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+                Logger.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + message);
                 processCustomMessage(context, bundle);
 
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
@@ -111,21 +112,7 @@ public class MyReceiver extends BroadcastReceiver {
 //		if (MainActivity.isForeground) {
         String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
         Logger.d(TAG, "message:" + message);
-//			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-//			Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
-//			msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
-//			if (!ExampleUtil.isEmpty(extras)) {
-//				try {
-//					JSONObject extraJson = new JSONObject(extras);
-//					if (extraJson.length() > 0) {
-//						msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
-//					}
-//				} catch (JSONException e) {
-//
-//				}
-//
-//			}
-//			LocalBroadcastManager.getInstance(context).sendBroadcast(msgIntent);
-//		}
+
+        WifiConnectActivity.startMe(context, message);
     }
 }
