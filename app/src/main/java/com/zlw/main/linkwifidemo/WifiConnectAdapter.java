@@ -15,9 +15,9 @@ public class WifiConnectAdapter extends BaseQuickAdapter<ScanResult, BaseViewHol
     @Override
     protected void convert(BaseViewHolder viewHolder, ScanResult item) {
         viewHolder
-                .setText(R.id.etWifiSSID, item.SSID)
-                .setText(R.id.wifiLevel, "信号: " + item.level)
-                .setText(R.id.wifiContext, item.toString());
+                .setText(R.id.tvWifiSSID, item.SSID)
+                .setText(R.id.tvWifiLevel, "信号: " + item.level)
+                .setText(R.id.tvWifiContext, item.toString());
     }
 
 }

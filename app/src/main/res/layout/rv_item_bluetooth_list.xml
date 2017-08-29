@@ -11,31 +11,32 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvWifiSSID"
+            android:id="@+id/tvBluetoothName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:text="MyWifi"
+            android:text="NameName"
+            android:minWidth="160dp"
             android:textColor="#000"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tvWifiLevel"
+            android:id="@+id/tvBluetoothAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:text="MyWifi"
+            android:layout_marginLeft="10dp"
+            android:text="Address"
             android:textColor="#335"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvWifiContext"
+        android:id="@+id/tvBluetoothContext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="6dp"
-        android:text="MyWifi"
+        android:text="description"
         android:textColor="#555"
         android:textSize="10sp" />
 
