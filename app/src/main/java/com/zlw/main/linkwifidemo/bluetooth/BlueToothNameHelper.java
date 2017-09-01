@@ -2,6 +2,20 @@ package com.zlw.main.linkwifidemo.bluetooth;
 
 
 public class BlueToothNameHelper {
+    //android 6.0 Api
+    //https://developer.android.com/reference/android/bluetooth/BluetoothClass.Device.Major.html
+    public static final int PHONE = 512;//手机
+    public static final int COMPUTER = 256;//电脑
+    public static final int HEALTH = 2304;//健康设备
+    public static final int IMAGING = 1536;//显示设备
+    public static final int MISC = 0;//混合
+    public static final int NETWORKING = 768;//通信设备
+    public static final int PERIPHERAL = 1280;//外部设备
+    public static final int TOY = 2048;//玩具
+    public static final int UNCATEGORIZED = 7936;//未分类
+    public static final int WEARABLE = 1792;//可穿戴设备
+
+    //仅参考使用
     public static final int AUDIO_VIDEO_CAMCORDER = 1076; // 音视频摄像机
     public static final int AUDIO_VIDEO_CAR_AUDIO = 1056;
     public static final int AUDIO_VIDEO_HANDSFREE = 1032;
@@ -48,18 +62,6 @@ public class BlueToothNameHelper {
     public static final int WEARABLE_JACKET = 1804;
     public static final int WEARABLE_PAGER = 1800;
     public static final int WEARABLE_WRIST_WATCH = 1796;
-
-    //android 6.0 Api
-    public static final int PHONE = 512;//手机
-    public static final int COMPUTER = 256;//电脑
-    public static final int HEALTH = 2304;//健康设备
-    public static final int IMAGING = 1536;//显示设备
-    public static final int MISC = 0;//混合
-    public static final int NETWORKING = 768;//通信设备
-    public static final int PERIPHERAL = 1280;//外部设备
-    public static final int TOY = 2048;//玩具
-    public static final int UNCATEGORIZED = 7936;//未分类
-    public static final int WEARABLE = 1792;//可穿戴设备
 
     public static final int BOND_NONE = 10;
     public static final int BOND_BONDING = 11;

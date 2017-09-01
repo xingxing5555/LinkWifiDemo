@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LinkWifiDemo</string>
+    <string name="specification">蓝牙：开启、扫描、配对、发送消息、接收消息;\n WIFI：开启、扫描、连接；\n 热点：;\n 极光推送：自定义消息收、发; \n 二维码：生成、扫描 </string>
 </resources>

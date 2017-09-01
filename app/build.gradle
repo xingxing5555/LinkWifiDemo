@@ -28,6 +28,7 @@ android {
 }
 
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -44,8 +45,8 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     compile 'com.google.guava:guava:22.0-android'
     compile 'cn.yipianfengye.android:zxing-library:2.2'
+    compile 'com.github.a-voyager:BluetoothHelper:f71d40a98b'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
-    compile 'com.github.a-voyager:BluetoothHelper:f71d40a98b'
 }

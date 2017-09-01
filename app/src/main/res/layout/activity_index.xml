@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.zlw.main.linkwifidemo.MainActivity">
+
+    <Button
+        android:id="@+id/btBlueTooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="蓝牙相关" />
+
+    <Button
+        android:id="@+id/btWifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Wifi相关" />
+
+    <Button
+        android:id="@+id/btHotspot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="热点相关" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="功能描述" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:paddingLeft="10dp"
+        android:text="@string/specification" />
+</LinearLayout>

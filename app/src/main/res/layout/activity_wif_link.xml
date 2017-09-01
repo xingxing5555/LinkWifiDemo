@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.zlw.main.linkwifidemo.MainActivity">
+    tools:context="com.zlw.main.linkwifidemo.WifiActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar"

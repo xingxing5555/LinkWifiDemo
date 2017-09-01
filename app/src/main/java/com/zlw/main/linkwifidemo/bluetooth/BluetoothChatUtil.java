@@ -23,7 +23,7 @@ public class BluetoothChatUtil {
     // 创建服务器套接字
     private static final String NAME = "BluetoothChat";
 
-    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     public static StringBuffer hexString = new StringBuffer();
     // 适配器成员  
     private final BluetoothAdapter mAdapter;

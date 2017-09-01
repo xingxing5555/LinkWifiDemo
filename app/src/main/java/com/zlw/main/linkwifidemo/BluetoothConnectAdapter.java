@@ -35,7 +35,5 @@ public class BluetoothConnectAdapter extends BaseQuickAdapter<BluetoothDevice, B
                 .setText(R.id.tvBluetoothAddress, item.getAddress())
                 .setText(R.id.tvBluetoothContext, "状态：" + BlueToothNameHelper.getStatusName(item.getBondState()) + " ; 设备： "
                         + deviceName);
-
     }
-
 }

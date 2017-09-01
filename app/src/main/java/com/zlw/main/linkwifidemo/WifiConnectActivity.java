@@ -28,6 +28,10 @@ public class WifiConnectActivity extends AppCompatActivity {
 
     private WifiConnectBean wifiConnectBean;
 
+    /**
+     * @param context
+     * @param jsonStr WifiConnectBean-json
+     */
     public static void startMe(Context context, String jsonStr) {
         Logger.e(TAG, "WifiConnectActivity startMe");
 

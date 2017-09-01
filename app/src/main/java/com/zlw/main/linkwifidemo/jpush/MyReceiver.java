@@ -107,9 +107,9 @@ public class MyReceiver extends BroadcastReceiver {
         return sb.toString();
     }
 
-    //send msg to MainActivity
+    //send msg to WifiActivity
     private void processCustomMessage(Context context, Bundle bundle) {
-//		if (MainActivity.isForeground) {
+//		if (WifiActivity.isForeground) {
         String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
         Logger.d(TAG, "message:" + message);
 
