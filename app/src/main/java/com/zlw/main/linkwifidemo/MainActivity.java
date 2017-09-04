@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.zlw.main.linkwifidemo.bluetooth.BlueToothActivity;
+import com.zlw.main.linkwifidemo.wifi.WifiActivity;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                 WifiActivity.startMe(this);
                 break;
             case R.id.btHotspot:
-                //TODO:btHotspot
+
                 break;
         }
     }

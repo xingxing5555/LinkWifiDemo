@@ -48,12 +48,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WifiActivity" />
+        <activity android:name=".wifi.WifiActivity" />
         <activity
-            android:name=".WifiConnectActivity"
+            android:name=".wifi.WifiConnectActivity"
             android:theme="@style/NoTitleAppTheme" />
-        <activity android:name=".BlueToothActivity">
-        </activity>
+        <activity android:name=".bluetooth.BlueToothActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -173,6 +172,7 @@
 
         <!-- JPush end -->
 
+        <activity android:name=".mifi.MifiActivity"></activity>
     </application>
 
 </manifest>

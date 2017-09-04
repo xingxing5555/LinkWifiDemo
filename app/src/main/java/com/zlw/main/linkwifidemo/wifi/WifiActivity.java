@@ -1,4 +1,4 @@
-package com.zlw.main.linkwifidemo;
+package com.zlw.main.linkwifidemo.wifi;
 
 import android.Manifest;
 import android.content.Context;
@@ -29,13 +29,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.common.collect.Lists;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.zlw.main.linkwifidemo.R;
 import com.zlw.main.linkwifidemo.utils.JsonUtil;
 import com.zlw.main.linkwifidemo.utils.Logger;
 import com.zlw.main.linkwifidemo.utils.blankj.PhoneUtils;
-import com.zlw.main.linkwifidemo.wifi.WifiConnectBean;
-import com.zlw.main.linkwifidemo.wifi.WifiController;
-import com.zlw.main.linkwifidemo.wifi.WifiReceiver;
-import com.zlw.main.linkwifidemo.wifi.WifiReceiverActionListener;
 
 import java.util.List;
 

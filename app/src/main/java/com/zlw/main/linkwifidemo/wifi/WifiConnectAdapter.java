@@ -1,10 +1,11 @@
-package com.zlw.main.linkwifidemo;
+package com.zlw.main.linkwifidemo.wifi;
 
 import android.net.wifi.ScanResult;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.common.collect.Lists;
+import com.zlw.main.linkwifidemo.R;
 
 public class WifiConnectAdapter extends BaseQuickAdapter<ScanResult, BaseViewHolder> {
 

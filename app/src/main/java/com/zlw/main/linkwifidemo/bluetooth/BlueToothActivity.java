@@ -1,4 +1,4 @@
-package com.zlw.main.linkwifidemo;
+package com.zlw.main.linkwifidemo.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -19,9 +19,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.common.collect.Lists;
-import com.zlw.main.linkwifidemo.bluetooth.BlueToothActionListener;
-import com.zlw.main.linkwifidemo.bluetooth.BlueToothReceiver;
-import com.zlw.main.linkwifidemo.bluetooth.BluetoothChatUtil;
+import com.zlw.main.linkwifidemo.R;
 import com.zlw.main.linkwifidemo.utils.Logger;
 
 import java.io.IOException;
@@ -130,8 +128,6 @@ public class BlueToothActivity extends AppCompatActivity {
                     String deviceName = msg.getData().getString(BluetoothChatUtil.DEVICE_NAME);
                     Toast.makeText(getApplicationContext(), "连接OK", Toast.LENGTH_SHORT).show();
                     Logger.d(TAG, "连接OK deviceName:%d", deviceName);
-
-
                     break;
                 case BluetoothChatUtil.STATAE_CONNECT_FAILURE:
                     Logger.w(TAG, "连接失败");
@@ -278,10 +274,8 @@ public class BlueToothActivity extends AppCompatActivity {
         });
     }
 
-
     /**
-     * 与设备配对 参考源码：platform/packages/apps/Settings.git
-     * /Settings/src/com/android/settings/bluetooth/CachedBluetoothDevice.java
+     * 与设备配对
      */
     public void createBond(BluetoothDevice btDevice) {
         try {

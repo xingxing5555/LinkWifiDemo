@@ -1,4 +1,4 @@
-package com.zlw.main.linkwifidemo;
+package com.zlw.main.linkwifidemo.wifi;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +8,9 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.zlw.main.linkwifidemo.R;
 import com.zlw.main.linkwifidemo.utils.JsonUtil;
 import com.zlw.main.linkwifidemo.utils.Logger;
-import com.zlw.main.linkwifidemo.wifi.OnWifiConnectListener;
-import com.zlw.main.linkwifidemo.wifi.WifiConnectBean;
-import com.zlw.main.linkwifidemo.wifi.WifiController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

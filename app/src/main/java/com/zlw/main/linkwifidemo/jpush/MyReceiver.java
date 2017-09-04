@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.zlw.main.linkwifidemo.WifiConnectActivity;
 import com.zlw.main.linkwifidemo.utils.Logger;
+import com.zlw.main.linkwifidemo.wifi.WifiConnectActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,11 +1,11 @@
-package com.zlw.main.linkwifidemo;
+package com.zlw.main.linkwifidemo.bluetooth;
 
 import android.bluetooth.BluetoothDevice;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.common.collect.Lists;
-import com.zlw.main.linkwifidemo.bluetooth.BlueToothNameHelper;
+import com.zlw.main.linkwifidemo.R;
 
 public class BluetoothConnectAdapter extends BaseQuickAdapter<BluetoothDevice, BaseViewHolder> {
 
